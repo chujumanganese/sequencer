@@ -33,7 +33,7 @@ import register from './controller/register.js';
 
 app.get('/', landingPage);
 app.post('/login', Login);
-app.post('/register', register);
+app.post('/register', register); 
 app.get('/dashboard', Dashboard);
 app.get('/balance', balance);
 
