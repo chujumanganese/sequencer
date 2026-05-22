@@ -1,0 +1,35 @@
+<!-- ============================================================
+     KYC SCREEN
+============================================================ -->
+
+<div class="screen" id="kycScreen">
+    <div class="topbar">
+    <div class="back-btn" onclick="go('homeScreen')">
+        <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#94a3b8"
+        stroke-width="2"
+        >
+        <polyline points="15 18 9 12 15 6" />
+        </svg>
+    </div>
+    <span class="page-title">Identity verification</span>
+    </div>
+    <div class="stepbar">
+    <div class="stp idle" id="ks1">
+        <span class="snum">1</span><span class="slbl">ID</span>
+    </div>
+    <div class="sline" id="kl1"></div>
+    <div class="stp idle" id="ks2">
+        <span class="snum">2</span><span class="slbl">Video</span>
+    </div>
+    <div class="sline" id="kl2"></div>
+    <div class="stp idle" id="ks3">
+        <span class="snum">3</span><span class="slbl">Review</span>
+    </div>
+    </div>
+    <div class="scbody" id="kycBody"></div>
+</div>
