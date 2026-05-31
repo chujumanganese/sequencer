@@ -5,10 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NexVault — Crypto Investment Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet" />
+    <link rel="icon" href="img/icon.svg" type="image/svg+xml">
+
+    <link rel="stylesheet" href="css/altered.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <link rel="stylesheet" href="css/index.css" />
 </head>
 <body>
     {{{body}}}
+
+    <script>
+        const titles = [
+            "Explore the Future of Crypto Investment with NexVault",
+            "Deposit, Withdraw, and Earn with NexVault",
+            "Best US Crypto Investment Platform",
+            "NexVault — Crypto Investment Platform",
+            "Nexvault: Your Gateway to Crypto Wealth",
+        ];
+
+        let index = 0;
+
+        setInterval(() => {
+            document.title = titles[index];
+            index = (index + 1) % titles.length;
+        }, 5000);
+    </script>
 </body>
 </html>

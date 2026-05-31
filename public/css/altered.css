@@ -1,0 +1,11 @@
+@import url("./index.css");
+
+.ferrorer {
+    color: red;
+    text-align: center;
+    background-color:#fee2e2;  
+    padding: 0.5em;
+    /* border: 1px solid red; */
+    display: none;
+    border-radius: 5px;
+}

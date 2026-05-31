@@ -4,7 +4,8 @@ function Login(req, res) {
     const { email, password } = req.body;
 
     if (email?.trim() === "" || password?.trim() === "") {
-        return res.render("index", { error: "Fill in the required fields" });
+        console.log(email, password);
+        return res.json({ error: "Fill in the required fields" });
     }
 
     db.get(
@@ -13,18 +14,18 @@ function Login(req, res) {
         (err, user) => {
             
             if (err) { // database error
-                return res.render("index", { error: "Database error" });
+                return res.json({ error: "Database error" });
             }
 
             if (!user) { // user not found
-                return res.render("index", {
+                return res.json({
                     error: "Account does not exist"
                 });
             }
 
             // password check
             if (user.password !== password) {
-                return res.render("index", {
+                return res.json({
                     error: "Incorrect password"
                 });
             }
@@ -37,7 +38,7 @@ function Login(req, res) {
                 wallet: user.wallet
             };
 
-            res.redirect("/dashboard");
+            res.json({ success: true });
         }
     );
 }
