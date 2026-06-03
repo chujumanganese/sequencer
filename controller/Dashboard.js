@@ -1,11 +1,16 @@
-// import { balance } from "../model/balance_db.js"
+import db from '../model/DB.js';
 
 async function Dashboard(req, res) {
 
-    // const walletBalance = await balance("uemm") || 0;
     if(req.session.user){
         const user = req.session.user.username;
-        res.render("dashboard", {username: user, wallet_address: "wallet"});
+        db.get(`SELECT wallet_address, balance FROM users WHERE username = ?`, [user], (err, row) => {
+            if (err) {
+                console.error(err.message);
+                return res.status(500).send("Internal Server Error");
+            }
+            // res.render("dashboard", {username: user, wallet_address: row.wallet_address, balance: row.balance});
+        });
     }else{
         return res.redirect("/")
     }
