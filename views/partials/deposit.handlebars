@@ -1,327 +1,59 @@
 <!-- ============================================================
                     DEPOSIT SCREEN
 ============================================================ -->
-<div class="screen" id="depositScreen">
+<link rel="stylesheet" href="/css/deposit.css">
+<div class="screen" x-data="{phase: 1}">
 
     <div class="topbar">
-        <div class="back-btn" onclick="go('homeScreen')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
-                <polyline points="15 18 9 12 15 6"/>
-            </svg>
-        </div>
+        <span class="page-title">Select coin</span>
+    </div><br>
 
-        <span class="page-title" id="depTitle">
-            Deposit crypto
-        </span>
-    </div>
-
-    <div class="stepbar">
+    <div class="stepbar active">
         <div class="stp idle" id="ds1">
-            <span class="snum">1</span>
+            <span class="snum" :class="phase === 1 ? 'selected_one' : 'snum'">1</span>
             <span class="slbl">Coin</span>
         </div>
 
         <div class="sline" id="dl1"></div>
 
         <div class="stp idle" id="ds2">
-            <span class="snum">2</span>
+            <span class="snum" :class="phase === 2 ? 'selected_one' : 'snum'">2</span>
             <span class="slbl">Network</span>
         </div>
 
         <div class="sline" id="dl2"></div>
 
         <div class="stp idle" id="ds3">
-            <span class="snum">3</span>
+            <span class="snum" :class="phase === 3 ? 'selected_one' : 'snum'">3</span>
             <span class="slbl">Address</span>
         </div>
     </div>
 
-    <div class="scbody" id="depBody"></div>
-
-</div>
-<script>
-    const depBody = document.getElementById("depBody");
-
-    const depSteps = [ document.getElementById("ds1"), document.getElementById("ds2"), document.getElementById("ds3")
-    ];
-
-    const depLines = [ document.getElementById("dl1"), document.getElementById("dl2")
-    ];
-
-    const depTitles = {
-        1: "Select coin",
-        2: "Select network",
-        3: "Deposit address"
-    };
-
-    function resetDepSteps() {
-
-        depSteps.forEach(step => {
-            step.className = "stp idle";
-        });
-
-        depLines.forEach(line => {
-            line.className = "sline";
-        });
-
-    }
-
-    function setDepSteps() {
-        resetDepSteps();
-
-        if (depStep >= 1) {
-            depSteps[0].className = depStep === 1 ? "stp active" : "stp done";
-        }
-
-        if (depStep >= 2) {
-            depLines[0].className = "sline done";
-
-            depSteps[1].className = depStep === 2  ? "stp active" : "stp done";
-        }
-
-        if (depStep >= 3) {
-            depLines[1].className = "sline done";
-            depSteps[2].className = "stp active";
-        }
-
-        document.getElementById("depTitle").textContent = depTitles[depStep];
-    }
-
-    async function renderDep() {
-
-        setDepSteps();
-
-        if (depStep === 1) { renderCoinStep(); }
-
-        else if (depStep === 2) { renderNetworkStep(); }
-
-        else {  await renderAddressStep(); }
-    }
-
-    function renderCoinStep() {
-
-        depBody.innerHTML = `
-        
-            <label class="flabel" style="display:block;margin-bottom:10px">
-                Choose coin to deposit
-            </label>
-
-            <div class="coingrid">
-                ${depCoins.map(renderCoinCard).join("")}
+    <div class="scbody" id="depBody" x-data="{select: false}">
+        <small>CHOOSE COIN TO DEPOSIT</small><br>
+        <div @click="select = !select"> 
+            <div class="box_eth" :class="select ? 'box_eth_selected' : 'box_eth'">
+                <h2>ETH</h2>
+                <small>Ethereum</small>
             </div>
-
-            <div style="background:rgba(0,212,170,.07);border:1px solid rgba(0,212,170,.2);border-radius:12px;padding:13px;display:flex;gap:9px;margin-bottom:20px">
-
+        </div>
+        <div class="warns">
+            <span>
                 <svg style="flex-shrink:0;margin-top:1px" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00d4aa" stroke-width="1.5">
                     <circle cx="12" cy="12" r="10"/>
                     <line x1="12" y1="8" x2="12" y2="12"/>
                     <line x1="12" y1="16" x2="12.01" y2="16"/>
                 </svg>
-
-                <span style="font-size:12px;color:#6ee7da;line-height:1.7">
-                    Deposits increase your daily growth rate.
-                    Every $100 deposited adds +0.1%/day to your rate,
-                    up to 2.5%/day.
-                </span>
-
-            </div>
-
-            <div class="navrow">
-                <button class="nxbtn" onclick="depNext()" ${depCoin ? "" : "disabled"}> Continue → </button>
-            </div>
-        `;
-    }
-
-    function renderCoinCard(c) {
-
-        return `
-            <div  class="coinopt ${depCoin === c.sym ? 'on' : ''}" onclick="depPickCoin('${c.sym}')" >
-                <span class="csym ${c.cls}">
-                    ${c.sym}
-                </span>
-
-                <span class="cnsm">
-                    ${c.name}
-                </span>
-            </div>
-        `;
-    }
-
-    function renderNetworkStep() {
-        const nets = depNets[depCoin] || [];
-
-        depBody.innerHTML = `
-        
-            <label class="flabel" style="display:block;margin-bottom:10px">
-                Select network for ${depCoin}
-            </label>
-
-            <div class="netlist">
-                ${nets.map(renderNetworkCard).join("")}
-            </div>
-
-            <div class="navrow">
-
-                <button class="nbtn" onclick="depBack()">
-                    ← Back
-                </button>
-
-                <button 
-                    class="nxbtn"
-                    onclick="depNext()"
-                    ${depNet ? "" : "disabled"}
-                >
-                    Continue →
-                </button>
-
-            </div>
-        
-        `;
-    }
-
-    function renderNetworkCard(n) {
-
-        const selected = depNet === n.id;
-
-        return `
-        
-            <div 
-                class="netopt ${selected ? 'on' : ''}"
-                onclick="depPickNet('${n.id}')"
-            >
-
-                <div 
-                    class="netico"
-                    style="background:${n.col}22;color:${n.col}"
-                >
-                    ${n.abbr}
-                </div>
-
-                <div style="flex:1">
-
-                    <div class="netnm">
-                        ${n.name}
-                    </div>
-
-                    <div class="netsub">
-                        ${n.sub}
-                    </div>
-
-                </div>
-
-                <div style="text-align:right">
-
-                    <div class="netfee">
-                        ${n.fee} 
-                    </div>
-
-                    <div class="radio ${selected ? 'on' : ''}"></div>
-
-                </div>
-
-            </div>
-        
-        `;
-    }
-
-    async function renderAddressStep() {
-        const res = await fetch("/add");
-        const walletData = await res.json();
-
-        const addr = walletData.address || "";
-
-        depBody.innerHTML = `
-        
-            <div style="background:rgba(0,212,170,.06);border:1px solid rgba(0,212,170,.15);border-radius:13px;padding:13px;display:flex;align-items:center;gap:10px;margin-bottom:16px">
-
-                <svg style="flex-shrink:0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4aa" stroke-width="1.5">
-                    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
-                </svg>
-
-                <span style="font-size:12px;color:#6ee7da;line-height:1.6">
-                    After sending, your deposit will be confirmed
-                    automatically.
-                </span>
-
-            </div>
-
-            <div class="addrcard">
-
-                <div class="qrwrap">
-                    <div class="qrbox" id="qrCanvas"></div>
-                </div>
-
-                <span class="addrlabel">
-                    Your ${depCoin} deposit address
-                </span>
-
-                <div class="addrbox">
-
-                    <span class="addrtxt">
-                        ${addr}
-                    </span>
-
-                    <button 
-                        class="copybtn"
-                        onclick="doCopy('${addr}',this)"
-                    >
-                        Copy
-                    </button>
-
-                </div>
-
-            </div>
-
-            <div class="warnbox">
-
-                <svg style="flex-shrink:0;margin-top:2px" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                    <line x1="12" y1="9" x2="12" y2="13"/>
-                    <line x1="12" y1="17" x2="12.01" y2="17"/>
-                </svg>
-
-                <span class="warntxt">
-                    Only send <strong>${depCoin}</strong>
-                    on the selected network.
-                </span>
-
-            </div>
-
-            <div class="sharerow">
-                <button class="sharebtn">📤 Share</button>
-                <button class="sharebtn">📷 Save QR</button>
-            </div>
-
-            <div class="navrow">
-
-                <button class="nbtn" onclick="depBack()">
-                    ← Back
-                </button>
-
-                <button class="nxbtn" onclick="go('homeScreen')">
-                    Done
-                </button>
-
-            </div>
-        
-        `;
-
-        renderQR(addr);
-    }
-
-    function renderQR(addr) {
-        if (!addr) return;
-        const el = document.getElementById("qrCanvas");
-        if (!el) return;
-
-        new QRCode(el, {
-            text: addr,
-            width: 140,
-            height: 140,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.M
-        });
-
-    }
+            </span>
+            <span>
+                Deposits increase your daily growth rate. Every $100 deposited adds +0.1%/day to your rate, up to 2.5%/day.
+            </span>
+        </div>
+        <button>
+            Continue → 
+        </button>
+    </div>
+</div>
+<script>
+   
 </script>

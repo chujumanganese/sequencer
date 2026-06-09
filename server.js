@@ -35,6 +35,9 @@ app.get('/', landingPage);
 app.post('/login', Login);
 app.post('/register', register); 
 app.get('/dashboard', Dashboard);
+app.get('/fish', (req, res)=>{
+  res.render('dash', {layout: 'main'});
+})
 app.get('/balance', balance);
 
 const PORT = process.env.PORT || 3000;

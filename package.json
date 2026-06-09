@@ -9,6 +9,7 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
+    "alpinejs": "^3.15.12",
     "dotenv": "^16.3.1",
     "express": "^4.22.2",
     "express-handlebars": "^9.0.1",
