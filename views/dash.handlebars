@@ -9,111 +9,10 @@
       rel="stylesheet"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <link rel="stylesheet" href="/index.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <script src="/js/wlinked.js"></script>
 </head>
 <body>
-    <!-- ============================================================
-                    DEPOSIT SCREEN
-    ============================================================ -->
-    <div class="screen" id="depositScreen">
-      <div class="topbar">
-        <div class="back-btn" onclick="go('homeScreen')">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#94a3b8"
-            stroke-width="2"
-          >
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </div>
-        <span class="page-title" id="depTitle">Deposit crypto</span>
-      </div>
-      <div class="stepbar">
-        <div class="stp idle" id="ds1">
-          <span class="snum">1</span><span class="slbl">Coin</span>
-        </div>
-        <div class="sline" id="dl1"></div>
-        <div class="stp idle" id="ds2">
-          <span class="snum">2</span><span class="slbl">Network</span>
-        </div>
-        <div class="sline" id="dl2"></div>
-        <div class="stp idle" id="ds3">
-          <span class="snum">3</span><span class="slbl">Address</span>
-        </div>
-      </div>
-      <div class="scbody" id="depBody"></div>
-    </div>
-
-    <!-- ============================================================
-     BUY CRYPTO SCREEN
-============================================================ -->
-    <div class="screen" id="buyScreen">
-      <div class="topbar">
-        <div class="back-btn" onclick="go('homeScreen')">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#94a3b8"
-            stroke-width="2"
-          >
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </div>
-        <span class="page-title">Buy crypto</span>
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 11px;
-            color: var(--muted);
-          "
-        >
-          Powered by <span class="moonbadge">MoonPay</span>
-        </div>
-      </div>
-      <div class="scbody" id="buyBody"></div>
-    </div>
-
-    <!-- ============================================================
-     KYC SCREEN
-============================================================ -->
-    <div class="screen" id="kycScreen">
-      <div class="topbar">
-        <div class="back-btn" onclick="go('homeScreen')">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#94a3b8"
-            stroke-width="2"
-          >
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </div>
-        <span class="page-title">Identity verification</span>
-      </div>
-      <div class="stepbar">
-        <div class="stp idle" id="ks1">
-          <span class="snum">1</span><span class="slbl">ID</span>
-        </div>
-        <div class="sline" id="kl1"></div>
-        <div class="stp idle" id="ks2">
-          <span class="snum">2</span><span class="slbl">Video</span>
-        </div>
-        <div class="sline" id="kl2"></div>
-        <div class="stp idle" id="ks3">
-          <span class="snum">3</span><span class="slbl">Review</span>
-        </div>
-      </div>
-      <div class="scbody" id="kycBody"></div>
-    </div>
     <!-- ============================================================
      HOME / PORTFOLIO SCREEN
 ============================================================ -->
@@ -122,7 +21,7 @@
         <div>
           <div style="font-size: 12px; color: var(--muted)">Welcome back</div>
           <div style="font-size: 16px; font-weight: 600" id="homeUser">
-            <%= username %>
+            User
           </div>
         </div>
         <div
@@ -1013,10 +912,21 @@
         </div>
       </div>
     </div>
+    <div class="screen" id="depositScreen"></div>
         <!-- ============================================================
      WITHDRAW SCREEN
 ============================================================ -->
+{{!-- <div class="steps">
+    <div id="ds1" class="stp">1</div>
+    <div id="dl1" class="sline"></div>
+
+    <div id="ds2" class="stp">2</div>
+    <div id="dl2" class="sline"></div>
+
+    <div id="ds3" class="stp">3</div>
+</div> --}}
     <div class="screen" id="withdrawScreen">
+      {{!-- <div id="buyBody"></div> --}}
       <div class="topbar">
         <div class="back-btn" onclick="go('homeScreen')">
           <svg
@@ -2025,7 +1935,6 @@
         </div>
       </div>
     </div>
-    <script src="/js/linked.js"></script>
-    <script src="/js/transfer.js"></script>
+    <script src="linked.js"></script>
 </body>
 </html>

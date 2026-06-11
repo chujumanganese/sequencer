@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/dashboard.css">
-    <script src="/js/alpine_variable.js"></script>
-</head>
+<link rel="stylesheet" href="/css/dashboard.css">
+<script src="/js/alpine_variable.js"></script>
+
 <body>
     <div class="padding" x-data="{ page: 'portfolio'}">
         <aside>
@@ -14,7 +9,8 @@
                 <small>Explore</small>
                 <li @click="page = 'portfolio'">
                     <span class="aside_icons">
-                        <svg viewBox="0 0 24 24" :stroke="page === 'portfolio' ? 'white' : 'darkgrey'" :fill="page === 'portfolio' ? 'white' : black">
+                        <svg viewBox="0 0 24 24" :stroke="page === 'portfolio' ? 'white' : 'darkgrey'"
+                            :fill="page === 'portfolio' ? 'white' : 'black'">
                             <rect x="3" y="3" width="7" height="7" rx="1" />
                             <rect x="14" y="3" width="7" height="7" rx="1" />
                             <rect x="3" y="14" width="7" height="7" rx="1" />
@@ -26,9 +22,10 @@
                 <hr style="border-color: grey;"><br>
                 <small>General</small>
                 <li @click="page = 'withdrawal'">
-                    <span class="aside_icons"> 
-                        <svg viewBox="0 0 24 24" :stroke="page === 'withdrawal' ? 'white' : 'darkgrey'" :fill="page === 'withdrawal' ? 'white' : black">
-                            <circle cx="12" cy="12" r="10" :fill="page === 'withdrawal' ? 'white' : black" />
+                    <span class="aside_icons">
+                        <svg viewBox="0 0 24 24" :stroke="page === 'withdrawal' ? 'white' : 'darkgrey'"
+                            :fill="page === 'withdrawal' ? 'white' : 'black'">
+                            <circle cx="12" cy="12" r="10" :fill="page === 'withdrawal' ? 'white' : 'black'" />
                             <line x1="12" y1="8" x2="12" y2="12" stroke="green" stroke-width="5" />
                             <line x1="12" y1="16" x2="12.01" y2="16" stroke="green" />
                         </svg>
@@ -37,7 +34,8 @@
                 </li>
                 <li @click="page = 'trade'">
                     <span class="aside_icons">
-                        <svg viewBox="0 0 24 24" :stroke="page === 'trade' ? 'white' : 'darkgrey'" :fill="page === 'trade' ? 'white' : black">
+                        <svg viewBox="0 0 24 24" :stroke="page === 'trade' ? 'white' : 'darkgrey'"
+                            :fill="page === 'trade' ? 'white' : 'black'">
                             <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
                             <polyline points="16 7 22 7 22 13" />
                         </svg>
@@ -46,7 +44,8 @@
                 </li>
                 <li @click="page = 'account'">
                     <span class="aside_icons">
-                        <svg viewBox="0 0 24 24" :stroke="page === 'account' ? 'white' : 'darkgrey'" :fill="page === 'account' ? 'white' : black">
+                        <svg viewBox="0 0 24 24" :stroke="page === 'account' ? 'white' : 'darkgrey'"
+                            :fill="page === 'account' ? 'white' : 'black'">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                             <circle cx="12" cy="7" r="4" />
                         </svg>
@@ -56,30 +55,22 @@
             </ul>
         </aside>
         <div class="covering">
-            <nav>
-                <div class="top">
-                    <small>welcome back</small>
-                    <h5>JOHN</h5>
-                </div>
-                <ul>
-                    <li @click="page = 'deposit'">
-                        <small>Deposit</small>
-                    </li>
-                    <li @click="page = 'withdrawal'"><small>Withdraw</small></li>
-                    <li @click="page = 'crypto'"><small>Buy Crypto</small></li>
-                </ul>
-                <small style="display: inline-block; margin-inline: 1em;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5">
-                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"></path>
-                    </svg>
-                    <small>
-                </small style="display: inline-block; margin-inline: 1em;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                    </svg>
-                </small>
-            </nav>
-            <div x-show="page === 'trade'" >
+        <nav x-data="{nav: false}">
+            <div class="top">
+                <small>welcome back</small>
+                <h5 style="margin-top: 0.5em; color: rgb(98, 199, 4);">{{ username }}</h5>
+            </div>
+            <div class="bars" @click="nav = !nav">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul>
+                <li @click="page = 'deposit'"><small :class="page === 'deposit' ? 'nav_choosen' : ''">Deposit</small></li>
+                <li @click="page = 'withdrawal'"><small :class="page === 'withdrawal' ? 'nav_choosen' : ''">Withdraw</small></li>
+            </ul>
+        </nav>
+            <div x-show="page === 'trade'">
                 {{> trade }}
             </div>
             <div x-show="page === 'deposit'">
@@ -91,35 +82,34 @@
             <div x-show="page === 'account'">
                 {{> account }}
             </div>
-            <div x-show="page === 'crypto'">
-                {{> buy_crypto }}
-            </div>
             <main x-show="page === 'portfolio'">
+                {{#if bonus}}
                 <div x-data="{show_alert: true}" x-init="setTimeout(()=>{ show_alert = false },5000)">
                     <div class="alert" x-show="show_alert" x-transition.duration.1000ms>
                         <span class="one">🎉</span>
                         <p>
                             <span class="h_alert">Welcome Bonus Activated!</span>
-                            <br><small>You have received a</small> $1,000 
-                            <small>welcome bonus. It grows daily — reach</small> $10,000 
+                            <br><small>You have received a</small> $1,000
+                            <small>welcome bonus. It grows daily — reach</small> $10,000
                             <small>to unlock withdrawal.</small>
                         </p>
                     </div>
                 </div>
+                {{/if}}
                 <section>
                     <small>TOTAL PORTFOLIO VALUE</small>
-                    <h3>$ 1,030.38</h3>
-                    <p><span class="odd_p">+0.50%</span> +$5.15 today</p>
+                    <h5>${{ balance }}</h5>
+                    <p><span class="odd_p">{{ dailyRate }}%</span> <small>+${{ todayProfit }} today</small></p>
                     <div class="card">
                         <div class="lower">
                             <small>progress to withdrawal</small>
-                            <small>1000</small>
+                            <small>10,000</small>
                         </div>
                         <div class="progress_bar">
-                            <div></div>
+                            <div style="width: calc(({{ balance }}% * 100%) / 10000%)"></div>
                         </div>
                         <div class="lower">
-                            <small>$1,030</small>
+                            <small>${{ balance }}</small>
                             <small>Goal: $10,000</small>
                         </div>
                         <div class="verify">
@@ -130,14 +120,15 @@
                 </section>
                 <div class="boxes">
                     <ul>
-                        <li><small>Daily Rate</small><br> 0.50%</li>
-                        <li><small>Days Active</small><br>5</li>
-                        <li><small>Total Earned</small><br><span class="h_alert">$0.00</span></li>
+                        <li><small>Daily Rate</small><br> {{ dailyRate }}%</li>
+                        <li><small>Days Active</small><br>{{ active_days }}</li>
+                        <li><small>Total Earned</small><br><span class="h_alert">${{ totalEarned }}</span></li>
                     </ul>
                 </div>
                 <div class="footer" @click="page = 'deposit'">
                     <div class="first_element">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00d4aa" stroke-width="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                            stroke="#00d4aa" stroke-width="2">
                             <line x1="12" y1="5" x2="12" y2="19"></line>
                             <polyline points="19 12 12 5 5 12"></polyline>
                         </svg>
@@ -147,9 +138,46 @@
                         <small>Deposit crypto to increase your daily growth rate and reach $10,000 faster.</small>
                     </div>
                 </div>
+                <div
+                    style="display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:13px;padding:13px 14px">
+                    <div
+                        style="width:36px;height:36px;border-radius:10px;background:rgba(34,197,94,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2">
+                            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                        </svg>
+                    </div>
+                    <div style="flex:1">
+                        <div style="font-size:13px;font-weight:600">Daily growth</div>
+                        <div style="font-size:11px;color:var(--muted);margin-top:2px">{{ growthDate }} · {{ growthRate }}% rate</div>
+                    </div>
+                    <div style="font-size:14px;font-weight:700;color:var(--green)">+${{ growthAmount }}</div>
+                </div>
             </main>
         </div>
     </div>
     <script src="/js/withdrawal.js"></script>
+    <script>
+        window.onload = ()=>{
+            const nav = document.querySelector("nav .bars");
+            let show_nav = document.querySelector("nav ul");
+            let children_nav = document.querySelectorAll("nav ul li");
+
+            nav.addEventListener("click", ()=>{
+                show_nav.classList.toggle("show");
+            });
+
+            children_nav.forEach((e)=>{
+                e.addEventListener("click", rep);
+            })
+
+            function rep(){
+                if(show_nav.classList.contains("show")){
+                    show_nav.classList.remove("show");
+                }
+            }
+        }
+        
+    </script>
 </body>
+
 </html>

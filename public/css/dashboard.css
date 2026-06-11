@@ -5,23 +5,13 @@
 }
 
 :root{
-    --bg:#0d1b2a;
-    --surface:#111827;
-    --card:#1a2235;
-    --accent:#98b637;
-    --accent2:#3b82f6;
-    --text:#f1f5f9;
-    --muted:#64748b;
-    --border:#1e293b;
-    --muted2:#ccd5ae;
-    --red:#ef4444;
-    --green:#22c55e;
-    --yellow:#f59e0b;
+    --bg:#0d1b2a; --surface:#111827; --card:#1a2235; --accent:#98b637;
+    --accent2:#3b82f6; --text:#f1f5f9; --muted:#64748b; --border:#1e293b;
+    --muted2:#ccd5ae; --red:#ef4444; --green:#22c55e; --yellow:#f59e0b;
     --boxshadow:1px 1px 5px grey;
 }
 
-html,
-body{
+html, body{
     background:var(--bg);
     color:var(--text);
     font-family:'DM Sans',sans-serif;
@@ -30,11 +20,9 @@ body{
 .active{
     color: white;
 }
-
 small{
     color:var(--muted);
 }
-
 .h_alert{
     color:var(--accent);
     display:inline-block;
@@ -52,7 +40,8 @@ ul,li{
     display:grid;
     grid-template-columns: auto 1fr;
     gap:1rem;
-    min-height:100dvh;
+    height:100dvh;
+    justify-content: flex-end;
 }
 .covering{
     min-width:0;
@@ -103,7 +92,18 @@ nav{
     gap:1rem;
     padding-block:.5em 1.5em;
     padding-inline: 1rem;
-    flex-wrap:wrap;
+    position: relative;
+}
+nav .bars{
+    flex-direction: column;
+    gap: 0.3em;
+    margin-left: auto;
+    display: none;
+}
+nav .bars div{
+    height: 5px;
+    width: 7px;
+    background: white;
 }
 nav ul{
     display:flex;
@@ -115,9 +115,17 @@ nav ul li{
     white-space:nowrap;
     cursor: pointer;
 }
-nav ul li:hover{
-    
+nav ul small{
+    padding: 0.4em;
 }
+.nav_choosen{
+    color: white;
+}
+nav ul li:hover small{
+    animation: border 1.2s ease-in-out;
+    border-bottom: 3px solid var(--accent);
+}
+
 
 /* =========================
    ALERT
@@ -194,7 +202,6 @@ section{
 }
 
 .progress_bar div{
-    width:10%;
     max-width:100%;
     height:100%;
     border-radius:50px;
@@ -268,6 +275,11 @@ section{
 /* =========================
    TABLETS
 ========================= */
+@keyframes h{
+    100%{
+        height: 200px;
+    }
+}
 
 @media (max-width: 950px){
     .padding{
@@ -275,7 +287,35 @@ section{
         flex-direction: column-reverse;
         padding:1rem;
     }
+    /* ASIDE SCREEN */
+    aside h3, aside small, aside .aside_icons + span, aside hr{
+        display: none;
+    }
+    aside ul li{
+        display: flex;
+        justify-content: center;
+    }
+    nav .bars{
+        display: flex;
+    }
+    nav ul{
+        display: none;
+        height: 0px;
+    }
+    nav ul.show{
+        display: grid;
+        animation: h 0.88s ease-in-out forwards;
+        z-index: 1;
+        width: 100%;
+        position: absolute;
+        background: var(--bg);
+        padding: 1em;
+        top: 100%;
+        left: 0;
+        border: 1px solid white;
+    }
     aside{
+        margin-top: auto;
         max-width: 100%;
         justify-content: center;
     }
@@ -284,15 +324,6 @@ section{
     }
     aside ul li{
         flex: 1 0 10px;
-    }
-
-    nav{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-    nav ul{
-        margin-left:0;
     }
 }
 
