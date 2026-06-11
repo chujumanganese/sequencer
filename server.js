@@ -38,10 +38,17 @@ app.get('/', landingPage);
 app.post('/login', Login);
 app.post('/register', register); 
 app.get('/dashboard', Dashboard);
+app.get('/logout', (req, res)=>{
+    req.session.user = "";
+    res.redirect("/");
+})
 app.get('/fish', (req, res)=>{
   res.render('dash', {layout: 'main'});
 })
 app.get('/balance', balance);
+app.use((req, res)=>{
+  res.status(404).render('404', {layout: false});
+})
 
 const PORT = process.env.PORT || 3000;
 
