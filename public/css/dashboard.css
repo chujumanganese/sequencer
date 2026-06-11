@@ -87,45 +87,12 @@ aside ul li:hover{
    NAV
 ========================= */
 nav{
-    display:flex;
-    align-items:center;
-    gap:1rem;
-    padding-block:.5em 1.5em;
+    padding-block:.5em 1em;
     padding-inline: 1rem;
-    position: relative;
 }
-nav .bars{
-    flex-direction: column;
-    gap: 0.3em;
-    margin-left: auto;
-    display: none;
+nav h5{
+    letter-spacing: 1.3px;
 }
-nav .bars div{
-    height: 5px;
-    width: 7px;
-    background: white;
-}
-nav ul{
-    display:flex;
-    gap:1em;
-    margin-left:auto;
-    flex-wrap:wrap;
-}
-nav ul li{
-    white-space:nowrap;
-    cursor: pointer;
-}
-nav ul small{
-    padding: 0.4em;
-}
-.nav_choosen{
-    color: white;
-}
-nav ul li:hover small{
-    animation: border 1.2s ease-in-out;
-    border-bottom: 3px solid var(--accent);
-}
-
 
 /* =========================
    ALERT

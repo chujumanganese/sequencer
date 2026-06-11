@@ -32,7 +32,7 @@
     }
 </style>
 <style></style>
-<div class="screen" id="withdrawScreen">
+<div class="screen" id="withdrawScreen" x-data="{withdraw: false}">
     <div class="scbody" id="withdrawBody">
         <div
             style="background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.2);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center">
@@ -47,17 +47,14 @@
             style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:16px">
             <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span
                     style="font-size:12px;color:var(--muted);font-weight:500">Your
-                    balance</span><span style="font-size:12px;font-weight:700;color:var(--accent)">$1,000.00</span>
+                    balance</span><span style="font-size:12px;font-weight:700;color:var(--accent)">${{ balance }}</span>
             </div>
-            <div
-                style="background:rgba(255,255,255,.06);border-radius:99px;height:10px;overflow:hidden;margin-bottom:8px">
-                <div
-                    style="height:100%;border-radius:99px;background:linear-gradient(90deg,#f59e0b,#f97316);width:10.00%">
-                </div>
+             <div class="progress_bar">
+                <div style="width: calc(({{ balance }}% * 100%) / 10000%); background:linear-gradient(90deg,#f59e0b,#f97316);"></div>
             </div>
             <div style="display:flex;justify-content:space-between"><span
-                    style="font-size:11px;color:var(--muted)">$1,000 / $10,000</span><span
-                    style="font-size:11px;color:var(--yellow)">Need $9,000.00 more</span></div>
+                    style="font-size:11px;color:var(--muted)">${{ balance }} / $10,000</span>
+                    <span style="font-size:11px;color:var(--yellow)">Need {{ subtract 10000 balance }} more</span></div>
         </div>
         <div
             style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:20px">
@@ -85,7 +82,7 @@
                         to boost your daily rate up to 2.5%/day</span>
                 </div>
             </div>
-        </div><button class="pbtn" onclick="goDeposit()">Make a deposit to grow faster</button><button class="gbtn"
-            onclick="go('homeScreen')">Back to portfolio</button>
+        </div><button class="pbtn" @click="page='deposit'">Make a deposit to grow faster</button>
+        <button class="gbtn" @click="page='portfolio'">Back to portfolio</button>
     </div>
 </div>

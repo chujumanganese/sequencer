@@ -6,7 +6,10 @@ import session from "express-session";
 dotenv.config();
 const app = express();
 app.use(express.urlencoded({ extended: true }));
-app.engine("handlebars", engine({ partialsDir : "./views/partials/" }));
+app.engine("handlebars", engine({ partialsDir : "./views/partials/", helpers:{
+  subtract: (a, b) => a - b, 
+  letter: (a) => a[0],
+} }));
 app.set("view engine", "handlebars");
 app.use(express.static('public'));
 app.use(express.json());

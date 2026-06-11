@@ -21,6 +21,16 @@
                 </li>
                 <hr style="border-color: grey;"><br>
                 <small>General</small>
+                <li @click="page = 'deposit'">
+                    <span class="aside_icons">
+                        <svg viewBox="0 0 24 24" :stroke="page === 'deposit' ? 'white' : 'darkgrey'"
+                            :fill="page === 'deposit' ? 'white' : 'black'">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                    </span>
+                    <span :class="page === 'deposit' ? 'nav_choosen' : ''">Deposit</span>
+                </li>
                 <li @click="page = 'withdrawal'">
                     <span class="aside_icons">
                         <svg viewBox="0 0 24 24" :stroke="page === 'withdrawal' ? 'white' : 'darkgrey'"
@@ -60,15 +70,6 @@
                 <small>welcome back</small>
                 <h5 style="margin-top: 0.5em; color: rgb(98, 199, 4);">{{ username }}</h5>
             </div>
-            <div class="bars" @click="nav = !nav">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <ul>
-                <li @click="page = 'deposit'"><small :class="page === 'deposit' ? 'nav_choosen' : ''">Deposit</small></li>
-                <li @click="page = 'withdrawal'"><small :class="page === 'withdrawal' ? 'nav_choosen' : ''">Withdraw</small></li>
-            </ul>
         </nav>
             <div x-show="page === 'trade'">
                 {{> trade }}
@@ -112,9 +113,9 @@
                             <small>${{ balance }}</small>
                             <small>Goal: $10,000</small>
                         </div>
-                        <div class="verify">
-                            <p>Identity verification pending</p>
-                            <p>Verify →</p>
+                        <div class="verify" @click="page='deposit'" style="cursor: pointer;" >
+                            <p>Deposit to boost profit</p>
+                            <p>Proceed →</p>
                         </div>
                     </div>
                 </section>
@@ -155,7 +156,6 @@
             </main>
         </div>
     </div>
-    <script src="/js/withdrawal.js"></script>
     <script>
         window.onload = ()=>{
             const nav = document.querySelector("nav .bars");

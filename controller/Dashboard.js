@@ -14,6 +14,7 @@ async function Dashboard(req, res) {
             res.render("dashboard", {
                 layout: 'dash',
                 username: user,
+                email : row.email,
                 bonus: row.wallet_balance > 1 ? false : true,
                 wallet_address: row.wallet_address, 
                 balance: row.wallet_balance,
@@ -23,7 +24,8 @@ async function Dashboard(req, res) {
                 totalEarned: 2,
                 growthDate: 'Jun 10',
                 growthRate: 0.50,
-                growthAmount: 5.33
+                growthAmount: 5.33,
+                Highbalance: row.wallet_balance > 9999 ? true : false,
             });
         });
     }else{
